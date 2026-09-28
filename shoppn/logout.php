@@ -11,5 +11,5 @@ if (ini_get('session.use_cookies')) {
 
 session_destroy();
 
-header('Location: /shoppn/index.php');
+header('Location: <?= BASE_URL ?>/index.php');
 exit;

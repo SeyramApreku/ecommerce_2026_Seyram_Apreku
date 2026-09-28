@@ -12,7 +12,7 @@ unset($_SESSION['error']);
     <p role="alert"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 
-<form id="login-form" action="/shoppn/actions/login_action.php" method="POST">
+<form id="login-form" action="<?= BASE_URL ?>/actions/login_action.php" method="POST">
     <label>Email
         <input type="email" name="email" required>
     </label><br>
@@ -24,8 +24,8 @@ unset($_SESSION['error']);
     <button type="submit">Login</button>
 </form>
 
-<p>Don't have an account? <a href="/shoppn/views/register.php">Register</a></p>
+<p>Don't have an account? <a href="<?= BASE_URL ?>/views/register.php">Register</a></p>
 
-<script src="/shoppn/js/validate.js"></script>
+<script src="<?= BASE_URL ?>/js/validate.js"></script>
 
 <?php require __DIR__ . '/layout/footer.php'; ?>

@@ -6,6 +6,15 @@ if (session_status() === PHP_SESSION_NONE) {
 date_default_timezone_set('Africa/Accra');
 
 require_once __DIR__ . '/db_class.php';
+$scriptPath = $_SERVER['SCRIPT_NAME'];
+$shopPosition = strpos($scriptPath, '/shoppn/');
+
+define(
+    'BASE_URL',
+    $shopPosition === false
+        ? '/shoppn'
+        : substr($scriptPath, 0, $shopPosition) . '/shoppn'
+);
 
 function is_logged_in()
 {
@@ -20,7 +29,7 @@ function is_admin()
 function require_login()
 {
     if (!is_logged_in()) {
-        header('Location: /shoppn/views/login.php');
+        header('Location: ' . BASE_URL . '/views/login.php');
         exit;
     }
 }
@@ -28,7 +37,7 @@ function require_login()
 function require_admin()
 {
     if (!is_admin()) {
-        header('Location: /shoppn/index.php');
+        header('Location: ' . BASE_URL . '/index.php');
         exit;
     }
 }
