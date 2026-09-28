@@ -3,7 +3,7 @@ require_once __DIR__ . '/../core/core.php';
 require_once __DIR__ . '/../controllers/CustomerController.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: <?= BASE_URL ?>/views/register.php');
+    header('Location: ' . BASE_URL . '/views/register.php');
     exit;
 }
 
@@ -23,7 +23,7 @@ if (
     !preg_match('/^[0-9+\-\s]{7,15}$/', $contact)
 ) {
     $_SESSION['error'] = 'Please check your details and try again.';
-    header('Location: <?= BASE_URL ?>/views/register.php');
+    header('Location: ' . BASE_URL . '/views/register.php');
     exit;
 }
 
@@ -40,7 +40,7 @@ try {
 
     if (!$result['success']) {
         $_SESSION['error'] = $result['error'];
-        header('Location: <?= BASE_URL ?>/views/register.php');
+        header('Location: ' . BASE_URL . '/views/register.php');
         exit;
     }
 
@@ -50,11 +50,11 @@ try {
     $_SESSION['customer_email'] = $email;
     $_SESSION['user_role'] = 2;
 
-    header('Location: <?= BASE_URL ?>/views/account/my_account.php');
+    header('Location: ' . BASE_URL . '/views/account/my_account.php');
     exit;
 } catch (PDOException $e) {
     error_log($e->getMessage());
     $_SESSION['error'] = 'Registration could not be completed.';
-    header('Location: <?= BASE_URL ?>/views/register.php');
+    header('Location: ' . BASE_URL . '/views/register.php');
     exit;
 }
