@@ -1,7 +1,7 @@
 <?php
 
 // Pull in the connection settings (DATABASE, SERVER, USERNAME, PASSWD constants)
-require_once "db_cred.php";
+require_once __DIR__ . '/db_cred.php';
 
 // Database is the base class every "model" class (like Customer) should extend.
 // It knows how to connect to MySQL and how to run queries safely (using
@@ -50,7 +50,8 @@ class Database
 
             // If the connection fails (wrong credentials, MySQL not
             // running, etc.) stop the script and show why.
-            die("Database connection failed: " . $e->getMessage());
+            error_log($e->getMessage());
+            die('Database connection failed. Please try again later.');
 
         }
     }

@@ -7,6 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+$fields = ['name', 'email', 'password', 'country', 'city', 'contact'];
+
+foreach ($fields as $field) {
+    if (isset($_POST[$field]) && !is_string($_POST[$field])) {
+        $_SESSION['error'] = 'Invalid registration details.';
+        header('Location: ' . BASE_URL . '/views/register.php');
+        exit;
+    }
+}
 $name = trim(strip_tags($_POST['name'] ?? ''));
 $email = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';

@@ -37,6 +37,7 @@ function require_login()
 function require_admin()
 {
     if (!is_admin()) {
+        $_SESSION['error'] = 'You do not have permission to access that page.';
         header('Location: ' . BASE_URL . '/index.php');
         exit;
     }

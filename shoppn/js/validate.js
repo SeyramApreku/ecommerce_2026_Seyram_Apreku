@@ -21,7 +21,6 @@ if (form) {
             const error = document.createElement('span');
             error.className = 'field-error';
             error.textContent = message;
-            error.style.color = 'red';
             input.insertAdjacentElement('afterend', error);
         }
     });
@@ -40,3 +39,19 @@ if (loginForm) {
         }
     });
 }
+
+document.querySelectorAll('.catalog-form').forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+        const input = form.querySelector('[data-catalog-name]');
+        const error = form.querySelector('.field-error');
+        const name = input.value.trim();
+
+        error.textContent = '';
+
+        if (!/^.{2,100}$/u.test(name)) {
+            event.preventDefault();
+            error.textContent = 'Enter a name between 2 and 100 characters.';
+            input.focus();
+        }
+    });
+});

@@ -7,6 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+foreach (['email', 'password'] as $field) {
+    if (isset($_POST[$field]) && !is_string($_POST[$field])) {
+        $_SESSION['error'] = 'Invalid login details.';
+        header('Location: ' . BASE_URL . '/views/login.php');
+        exit;
+    }
+}
 $email = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 
