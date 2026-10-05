@@ -22,7 +22,18 @@ unset($_SESSION['error']);
     </label><br>
 
     <label>Password
-        <input type="password" name="password" required minlength="8">
+        <input
+            type="password"
+            name="password"
+            required
+            minlength="8"
+            maxlength="72"
+            autocomplete="new-password"
+        >
+        <small>
+            Use uppercase and lowercase letters, a number, and a special character.
+            Minimum 8 characters; no spaces.
+        </small>
     </label><br>
 
     <label>Country

@@ -7,7 +7,9 @@ if (form) {
         const rules = [
             ['name', value => value.length >= 2, 'Enter your full name.'],
             ['email', value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), 'Enter a valid email.'],
-            ['password', value => /^(?=.*\d).{8,}$/.test(value), 'Use at least 8 characters and one digit.'],
+            ['password',
+                value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])\S{8,}$/.test(value),
+                'Use at least 8 characters, including uppercase, lowercase, a number, and a special character.'],
             ['country', value => value !== '', 'Select a country.'],
             ['city', value => value.length > 0, 'Enter your city.'],
             ['contact', value => /^[0-9+\-\s]{7,15}$/.test(value), 'Enter a valid contact number.']
@@ -15,7 +17,11 @@ if (form) {
 
         for (const [fieldName, isValid, message] of rules) {
             const input = form.elements[fieldName];
-            if (isValid(input.value.trim())) continue;
+            const value = fieldName === 'password'
+                ? input.value
+                : input.value.trim();
+
+            if (isValid(value)) continue;
 
             event.preventDefault();
             const error = document.createElement('span');

@@ -26,7 +26,8 @@ $contact = trim($_POST['contact'] ?? '');
 if (
     strlen($name) < 2 || strlen($name) > 100 ||
     !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 50 ||
-    strlen($password) < 8 || !preg_match('/\d/', $password) ||
+    strlen($password) < 8 || strlen($password) > 72 ||
+    !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])\S+$/', $password) ||
     !in_array($country, ['Ghana', 'Other'], true) ||
     $city === '' || strlen($city) > 30 ||
     !preg_match('/^[0-9+\-\s]{7,15}$/', $contact)
