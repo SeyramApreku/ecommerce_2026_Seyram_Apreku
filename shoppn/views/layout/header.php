@@ -17,6 +17,7 @@
                 <?php if (is_admin()): ?>
                     <a href="<?= BASE_URL ?>/views/admin/brand.php">Brands</a>
                     <a href="<?= BASE_URL ?>/views/admin/category.php">Categories</a>
+                    <a href="<?= BASE_URL ?>/views/admin/product.php">Products</a>
                 <?php endif; ?>
 
                 <?php if (is_logged_in()): ?>

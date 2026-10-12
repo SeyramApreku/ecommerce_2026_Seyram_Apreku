@@ -361,3 +361,76 @@ footer p {
 .sidebar-list:last-child {
     margin-bottom: 0;
 }
+
+.product-admin-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    align-items: start;
+    gap: 28px;
+    margin-top: 28px;
+}
+
+.product-admin-layout > section {
+    min-width: 0;
+}
+
+.product-field {
+    margin-bottom: 20px;
+}
+
+.product-field small {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+.product-field textarea {
+    resize: vertical;
+}
+
+.product-image-preview {
+    display: block;
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    margin: 12px 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--background);
+}
+
+.product-thumbnail {
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: var(--background);
+}
+
+.product-price {
+    white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+    .product-admin-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .header-row {
+        flex-wrap: wrap;
+    }
+
+    .header-row nav {
+        flex-shrink: 1;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .header-row form[role="search"] {
+        flex-basis: 100%;
+        max-width: none;
+        margin: 0;
+    }
+}

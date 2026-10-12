@@ -64,4 +64,65 @@ class ProductClass extends Database
             [$name, $id]
         );
     }
+
+    public function addProduct(
+        $cat,
+        $brand,
+        $title,
+        $price,
+        $desc,
+        $imageFilename,
+        $keywords
+    ) {
+        return $this->execute(
+            'INSERT INTO products
+             (product_cat, product_brand, product_title, product_price,
+              product_desc, product_image, product_keywords)
+             VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [$cat, $brand, $title, $price, $desc, $imageFilename, $keywords]
+        );
+    }
+
+    public function updateProduct(
+        $id,
+        $cat,
+        $brand,
+        $title,
+        $price,
+        $desc,
+        $imageFilename,
+        $keywords
+    ) {
+        return $this->execute(
+            'UPDATE products
+             SET product_cat = ?, product_brand = ?, product_title = ?,
+                 product_price = ?, product_desc = ?, product_image = ?,
+                 product_keywords = ?
+             WHERE product_id = ?',
+            [$cat, $brand, $title, $price, $desc, $imageFilename, $keywords, $id]
+        );
+    }
+
+    public function getProductById($id)
+    {
+        return $this->fetchOne(
+            'SELECT p.*, c.cat_name, b.brand_name
+             FROM products p
+             JOIN categories c ON p.product_cat = c.cat_id
+             JOIN brands b ON p.product_brand = b.brand_id
+             WHERE p.product_id = ?',
+            [$id]
+        );
+    }
+
+    public function getAllProducts()
+    {
+        return $this->fetchAll(
+            'SELECT p.*, c.cat_name, b.brand_name
+             FROM products p
+             JOIN categories c ON p.product_cat = c.cat_id
+             JOIN brands b ON p.product_brand = b.brand_id
+             ORDER BY p.product_id DESC'
+        );
+    }
 }

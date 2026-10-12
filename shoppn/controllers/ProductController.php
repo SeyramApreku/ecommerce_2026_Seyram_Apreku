@@ -49,4 +49,56 @@ class ProductController
     {
         return $this->product->updateCategory($id, $name);
     }
+
+    public function addProduct(
+        $cat,
+        $brand,
+        $title,
+        $price,
+        $desc,
+        $imageFilename,
+        $keywords
+    ) {
+        return $this->product->addProduct(
+            $cat,
+            $brand,
+            $title,
+            $price,
+            $desc,
+            $imageFilename,
+            $keywords
+        );
+    }
+
+    public function updateProduct(
+        $id,
+        $cat,
+        $brand,
+        $title,
+        $price,
+        $desc,
+        $imageFilename,
+        $keywords
+    ) {
+        return $this->product->updateProduct(
+            $id,
+            $cat,
+            $brand,
+            $title,
+            $price,
+            $desc,
+            $imageFilename,
+            $keywords
+        );
+    }
+
+    public function getProductById($id)
+    {
+        return $this->product->getProductById($id);
+    }
+
+    public function getAllProducts()
+    {
+        return $this->product->getAllProducts();
+    }
 }

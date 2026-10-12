@@ -61,3 +61,69 @@ document.querySelectorAll('.catalog-form').forEach(function (form) {
         }
     });
 });
+
+
+const productForm = document.getElementById('product-form');
+
+if (productForm) {
+    productForm.addEventListener('submit', function (event) {
+        const error = document.getElementById('product-form-error');
+        const title = productForm.elements['product_title'].value.trim();
+        const category = productForm.elements['product_cat'].value;
+        const brand = productForm.elements['product_brand'].value;
+        const price = productForm.elements['product_price'].value.trim();
+        const description = productForm.elements['product_desc'].value.trim();
+        const keywords = productForm.elements['product_keywords'].value.trim();
+        const imageInput = productForm.elements['product_image'];
+        const image = imageInput.files[0];
+
+        const allowedTypes = [
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'image/webp'
+        ];
+
+        error.textContent = '';
+
+        const messages = [];
+
+        if (title.length < 2 || title.length > 200) {
+            messages.push('Title must be 2–200 characters.');
+        }
+
+        if (!/^[1-9]\d*$/.test(category) || !/^[1-9]\d*$/.test(brand)) {
+            messages.push('Choose a category and brand.');
+        }
+
+        if (
+            !/^\d{1,8}(?:\.\d{1,2})?$/.test(price) ||
+            Number(price) <= 0
+        ) {
+            messages.push('Enter a positive price with up to two decimal places.');
+        }
+
+        if (description.length > 500 || keywords.length > 100) {
+            messages.push('Description must not exceed 500 characters and keywords 100.');
+        }
+
+        if (imageInput.required && !image) {
+            messages.push('Choose a product image.');
+        }
+
+        if (image) {
+            if (!allowedTypes.includes(image.type)) {
+                messages.push('Choose a JPG, PNG, GIF, or WebP image.');
+            }
+
+            if (image.size === 0 || image.size > 2 * 1024 * 1024) {
+                messages.push('Image must be no larger than 2 MB.');
+            }
+        }
+
+        if (messages.length > 0) {
+            event.preventDefault();
+            error.textContent = messages.join(' ');
+        }
+    });
+}
