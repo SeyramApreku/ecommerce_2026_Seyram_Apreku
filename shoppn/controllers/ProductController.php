@@ -101,4 +101,24 @@ class ProductController
     {
         return $this->product->getAllProducts();
     }
+
+    public function getFeaturedProducts($limit = 6)
+    {
+        return $this->product->getFeaturedProducts($limit);
+    }
+
+    public function getProductsByCategory($catId)
+    {
+        return $this->product->getProductsByCategory($catId);
+    }
+
+    public function getProductsByBrand($brandId)
+    {
+        return $this->product->getProductsByBrand($brandId);
+    }
+
+    public function searchProducts($query)
+    {
+        return $this->product->searchProducts($query);
+    }
 }

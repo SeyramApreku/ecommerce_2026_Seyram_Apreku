@@ -21,6 +21,12 @@ function is_logged_in()
     return isset($_SESSION['customer_id']);
 }
 
+function get_ip()
+{
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : '127.0.0.1';
+}
+
 function is_admin()
 {
     return is_logged_in() && (int) ($_SESSION['user_role'] ?? 0) === 1;

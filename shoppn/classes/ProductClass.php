@@ -125,4 +125,54 @@ class ProductClass extends Database
              ORDER BY p.product_id DESC'
         );
     }
+
+    public function getFeaturedProducts($limit = 6)
+    {
+        $limit = max(1, min(24, (int) $limit));
+        return $this->fetchAll(
+            'SELECT p.*, c.cat_name, b.brand_name
+             FROM products p
+             JOIN categories c ON p.product_cat = c.cat_id
+             JOIN brands b ON p.product_brand = b.brand_id
+             ORDER BY RAND() LIMIT ' . $limit
+        );
+    }
+
+    public function getProductsByCategory($catId)
+    {
+        return $this->fetchAll(
+            'SELECT p.*, c.cat_name, b.brand_name
+             FROM products p
+             JOIN categories c ON p.product_cat = c.cat_id
+             JOIN brands b ON p.product_brand = b.brand_id
+             WHERE p.product_cat = ? ORDER BY p.product_id DESC',
+            [$catId]
+        );
+    }
+
+    public function getProductsByBrand($brandId)
+    {
+        return $this->fetchAll(
+            'SELECT p.*, c.cat_name, b.brand_name
+             FROM products p
+             JOIN categories c ON p.product_cat = c.cat_id
+             JOIN brands b ON p.product_brand = b.brand_id
+             WHERE p.product_brand = ? ORDER BY p.product_id DESC',
+            [$brandId]
+        );
+    }
+
+    public function searchProducts($query)
+    {
+        $pattern = '%' . $query . '%';
+        return $this->fetchAll(
+            'SELECT p.*, c.cat_name, b.brand_name
+             FROM products p
+             JOIN categories c ON p.product_cat = c.cat_id
+             JOIN brands b ON p.product_brand = b.brand_id
+             WHERE p.product_title LIKE ? OR p.product_keywords LIKE ?
+             ORDER BY p.product_id DESC',
+            [$pattern, $pattern]
+        );
+    }
 }

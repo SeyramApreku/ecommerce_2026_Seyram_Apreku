@@ -1,3 +1,14 @@
+<?php
+require_once __DIR__ . '/../../core/cart_helpers.php';
+require_once __DIR__ . '/../../controllers/CartController.php';
+$headerCartController = new CartController();
+$headerCartCount = $headerCartController->getCartCount(get_ip());
+$headerCartTotal = $headerCartController->getCartTotal(get_ip());
+$cartSuccess = $_SESSION['cart_success'] ?? null;
+$cartError = $_SESSION['cart_error'] ?? null;
+unset($_SESSION['cart_success'], $_SESSION['cart_error']);
+cart_csrf_token();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +40,7 @@
                 <?php endif; ?>
             </nav>
 
-            <form action="<?= BASE_URL ?>/index.php" method="GET" role="search">
+            <form action="<?= BASE_URL ?>/views/search_results.php" method="GET" role="search">
                 <label class="visually-hidden" for="site-search">Search products</label>
                 <input
                     id="site-search"
@@ -37,8 +48,19 @@
                     name="user_query"
                     placeholder="Search products"
                 >
-                <button type="submit" disabled>Search</button>
+                <button type="submit">Search</button>
             </form>
+        </div>
+        <div class="cart-summary">
+            <span>Shopping Cart — Total Items: <?= $headerCartCount ?></span>
+            <span>Total Price: GH₵ <?= number_format($headerCartTotal, 2) ?></span>
+            <a href="<?= BASE_URL ?>/views/cart.php">Go to Cart</a>
         </div>
     </header>
     <main>
+    <?php if ($cartSuccess): ?>
+        <p class="cart-message" role="status"><?= htmlspecialchars($cartSuccess, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
+    <?php if ($cartError): ?>
+        <p role="alert"><?= htmlspecialchars($cartError, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
